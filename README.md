@@ -8,7 +8,7 @@ The project was written in Python 3.10. To run it, you need to install [PostgreS
 
 Additionally, you need to obtain the tokens:
 - [Telegram](https://core.telegram.org/bots/tutorial) 
-- [WordsAP](https://www.wordsapi.com/)
+- [WordsAPI](https://www.wordsapi.com/)
 
 ### Installing
 
