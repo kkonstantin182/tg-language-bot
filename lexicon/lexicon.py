@@ -30,7 +30,7 @@ LEXICON: dict[str, str] = {
 MENU_COMMANDS: dict[str, str] = {
     "/start": "Let's begin!",
     "/help": "Get help.",
-    "/open_vocabulary": "Open vocabulary, then: <i>word_orig</i> <i>word_trans</i>.",
+    "/open_vocabulary": "Open vocabulary to add words.",
     "/close_vocabulary": "Close vocabulary.",
     "/get_words": "Get 10 random words from the vocabulary. ",
     "/get_leaderboard": "Get top 10 learners.",    

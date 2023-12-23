@@ -41,9 +41,25 @@ class BotConfig:
     token: str   
 
 @dataclass
+class WordsAPIConfig:
+
+    """
+    Specifies configuration parameters for the Word's API token.
+    For more information visit: https://www.wordsapi.com/
+
+    Parameters
+    ----------
+    token : str
+        The Word's API token.
+    """
+    
+    token: str  
+
+@dataclass
 class Config:
     bot: BotConfig
     db: DatabaseConfig
+    word_api: WordsAPIConfig
    
     
 def load_config(path: str | None = None) -> Config:
@@ -69,12 +85,18 @@ def load_config(path: str | None = None) -> Config:
         bot = BotConfig(
             token=env('BOT_TOKEN')
         ),
+
         db=DatabaseConfig(
             database=env('DATABASE'),
             db_host=env('DB_HOST'),
             db_user=env('DB_USER'),
             db_password=env('DB_PASSWORD')
+        ),
+
+        word_api=WordsAPIConfig(
+            token=env('WORDS_API_TOKEN')
         )
+
     )
     
     return config

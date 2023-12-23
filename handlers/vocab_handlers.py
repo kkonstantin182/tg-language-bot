@@ -4,10 +4,12 @@ from aiogram.enums.parse_mode import ParseMode
 from aiogram.filters import Command, CommandStart, StateFilter 
 from aiogram.fsm.context import FSMContext 
 from aiogram.fsm.state import default_state
+from asyncpg import UniqueViolationError
 
 from database.database import Database
 from database.sql_commands import ADD_WORDS, GET_10_RAND_WORDS, GET_LEADERBOARD
 import pandas as pd
+from external_api.words_api import get_word_example
 from lexicon.lexicon import LEXICON
 from states.states import FSMVocabulary 
 
@@ -33,10 +35,15 @@ async def handle_open_vocabulary(message: Message, state: FSMContext):
 async def process_words(message: Message, state: FSMContext):
     user_id  = message.from_user.id
     word_orig, word_trans = message.text.lower().split()
-    args = user_id, word_orig, word_trans
+    # Add an example sentence for word_orig
+    example = await get_word_example(word_orig)
+    args = user_id, word_orig, word_trans, example
 
-    await database.execute(ADD_WORDS, *args, execute=True)
-    await message.answer(text=f"You added {word_orig} : {word_trans}")
+    try:
+        await database.execute(ADD_WORDS, *args, execute=True)
+        await message.answer(text=f"You added {word_orig} : {word_trans}")
+    except UniqueViolationError:
+        await message.answer(text=f"The word: {word_orig} is already in the database.")
 
 # Exit FSM (works only when a uses's inside FSM obv.)
 @router.message(Command(commands="close_vocabulary"), ~StateFilter(default_state))
@@ -57,7 +64,7 @@ async def get_words(message: Message):
 
     if words_result:
         output = f"{LEXICON[message.text]}\n"
-        output += _get_table(words_result, 'word_orig', 'word_trans')
+        output += _get_table(words_result, 'word_orig', 'word_trans', 'example')
     else:
         output = "No words found for the user."
 

@@ -18,7 +18,9 @@ CREATE_VOCAB_TABLE = """
 CREATE TABLE IF NOT EXISTS vocab (
     user_id BIGINT NOT NULL,
     word_orig TEXT NOT NULL,
-    word_trans TEXT NOT NULL
+    word_trans TEXT NOT NULL,
+    example TEXT NOT NULL,
+    UNIQUE (user_id, word_orig)
 );
 """
 
@@ -30,14 +32,15 @@ INSERT INTO users(user_id, user_name,  user_full_name)
 
 ADD_WORDS = """
 
-INSERT INTO vocab(user_id, word_orig,  word_trans)
-  VALUES ($1, $2, $3)
+INSERT INTO vocab(user_id, word_orig,  word_trans, example)
+  VALUES ($1, $2, $3, $4)
 """
 
 GET_10_RAND_WORDS = """
 
 SELECT word_orig,
-       word_trans
+       word_trans,
+       example
 FROM vocab
 WHERE user_id = $1
 ORDER BY RANDOM()
