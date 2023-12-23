@@ -46,6 +46,8 @@ To see the description of available commands, type in Telegram:
 ```
 /help
 ```
+(!) Keep in mind that the first (original word) should be in English, otherwise it won't be possible to get the examples from WordsAPI.
+
 ## Built With
 
 * [Aiogram 3](https://docs.aiogram.dev/en/latest/) - Asynchronous framework for Telegram Bot API.
