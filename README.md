@@ -38,11 +38,11 @@ docker compose up
 ```
 python app.py
 ```
-6. Once started, type:
+6. Once started, type in Telegram:
 ```
 /start
 ```
-To see the description of available commands, type:
+To see the description of available commands, type in Telegram:
 ```
 /help
 ```
