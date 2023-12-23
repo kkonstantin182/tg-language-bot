@@ -1,10 +1,3 @@
-"""
-Configuration module for the bot application.
-
-This module provides classes and functions for managing configuration settings,
-including database connection details and the bot's API token.
-"""
-
 from dataclasses import dataclass
 from environs import Env
 

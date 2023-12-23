@@ -4,7 +4,6 @@ from aiogram.types import BotCommand
 from lexicon.lexicon import MENU_COMMANDS
 
 # Configure the "Menu" button
-
 async def set_main_menu(bot: Bot):
     main_menu_commands = [BotCommand(
         command=command,

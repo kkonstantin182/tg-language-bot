@@ -1,6 +1,7 @@
 import asyncio
 import logging
 from aiogram import Bot, Dispatcher
+from aiogram.fsm.storage.memory import MemoryStorage
 
 from configuration.config import load_config, Config
 from handlers import basic_handlers, vocab_handlers
@@ -28,9 +29,12 @@ async def main():
     await database.execute(command=CREATE_USER_TABLE, execute=True)
     await database.execute(command=CREATE_VOCAB_TABLE, execute=True)
 
+    # Create a states storage
+    storage = MemoryStorage()
+
     # Bot and dispatcher initialization
-    bot = Bot(token=config.bot.token)
-    dp = Dispatcher()
+    bot = Bot(token=config.bot.token) 
+    dp = Dispatcher(storage=storage)
     
     # Set a main menu
     await set_main_menu(bot) 
