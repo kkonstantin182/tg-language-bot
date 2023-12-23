@@ -38,6 +38,14 @@ docker compose up
 ```
 python app.py
 ```
+6. Once started, type:
+```
+/start
+```
+To see the description of available commands, type:
+```
+/help
+```
 ## Built With
 
 * [Aiogram 3](https://docs.aiogram.dev/en/latest/) - Asynchronous framework for Telegram Bot API.
